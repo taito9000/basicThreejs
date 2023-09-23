@@ -35,7 +35,7 @@ fontLoader.load(
     `/fotns/helvetiker_regular.typeface.json`,
     (font) => {
         const textGeometry = new TextGeometry(
-            'Taito Portfolio\nComing Soon!',
+            'Taito’s Portfolio\nComing Soon!',
             {
                 font: font,
                 size: 0.5,
