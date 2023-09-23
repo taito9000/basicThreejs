@@ -55,7 +55,7 @@ fontLoader.load(
     //     - (textGeometry.boundingBox.max.z - 0.03) * 0.5  // Subtract bevel thickness
     // )
     textGeometry.center()
-    console.log(textGeometry.boundingBox)
+    //console.log(textGeometry.boundingBox)
 
     // const textMaterial = new THREE.MeshBasicMaterial()
     const textMaterial = new THREE.MeshMatcapMaterial({ matcap: matcapTexture })
@@ -64,7 +64,7 @@ fontLoader.load(
 
     const donutGeometry = new THREE.TorusGeometry(0.3, 0.2, 20, 45)
     const donutMaterial = new THREE.MeshMatcapMaterial({ matcap: matcapTexture })
-    
+
         for(let i = 0; i < 600; i++)
         {
      
