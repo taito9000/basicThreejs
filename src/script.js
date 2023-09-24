@@ -13,7 +13,6 @@ THREE.ColorManagement.enabled = false
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
 
-
 // Scene
 const scene = new THREE.Scene()
 // const axesHelper = new THREE.AxesHelper()
@@ -23,11 +22,17 @@ const scene = new THREE.Scene()
  * Textures
  */
 const textureLoader = new THREE.TextureLoader()
+
+const matcapTexture1 = textureLoader.load('/textures/matcaps/1.png')
+const matcapTexture2 = textureLoader.load('/textures/matcaps/2.png')
 const matcapTexture3 = textureLoader.load('/textures/matcaps/3.png')
 const matcapTexture4 = textureLoader.load('/textures/matcaps/4.png')
 const matcapTexture5 = textureLoader.load('/textures/matcaps/5.png')
 const matcapTexture6 = textureLoader.load('/textures/matcaps/6.png')
+const matcapTexture7 = textureLoader.load('/textures/matcaps/7.png')
 const matcapTexture8 = textureLoader.load('/textures/matcaps/8.png')
+const iceblue = textureLoader.load('/textures/matcaps/iceblue.png')
+const gold = textureLoader.load('/textures/matcaps/gold.png')
 
 /**
  * Fonts
@@ -59,22 +64,23 @@ fontLoader.load(
     // )
     textGeometry.center()
 
-    const textMaterial = new THREE.MeshMatcapMaterial({ matcap: matcapTexture5 })
+    // text
+    const textMaterial = new THREE.MeshMatcapMaterial({ matcap: gold })
     const text = new THREE.Mesh(textGeometry,textMaterial)
     scene.add(text)
 
 
     // torus
     const donutGeometry = new THREE.TorusGeometry(0.3, 0.2, 20, 45)
-    const donutMaterial = new THREE.MeshMatcapMaterial({ matcap: matcapTexture3 })
+    const donutMaterial = new THREE.MeshMatcapMaterial({ matcap: matcapTexture5 })
 
     // box
     const cubeGeometry = new THREE.BoxGeometry( 0.6, 0.6, 0.6 ); 
-    const cubeMaterial = new THREE.MeshMatcapMaterial({ matcap: matcapTexture4 })
+    const cubeMaterial = new THREE.MeshMatcapMaterial({ matcap: matcapTexture2 })
 
     // sphere
     const sphereGeometry = new THREE.SphereGeometry( 0.4, 0.4, 0.4 ); 
-    const sphereMaterial = new THREE.MeshMatcapMaterial( { matcap: matcapTexture6 } )
+    const sphereMaterial = new THREE.MeshMatcapMaterial( { matcap: matcapTexture3 } )
 
     // torusknot
     // const TorusKnotGeometry = new THREE.TorusKnotGeometry( 10, 3, 100, 16 )
@@ -154,7 +160,7 @@ window.addEventListener('resize', () =>
  * Camera
  */
 // Base camera
-const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
+const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 1, 100)
 camera.position.x = 0.2
 camera.position.y = 0.4
 camera.position.z = 10
