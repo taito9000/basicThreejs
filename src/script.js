@@ -9,11 +9,10 @@ THREE.ColorManagement.enabled = false
 /**
  * Base
  */
-// Debug
-const gui = new dat.GUI()
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
+
 
 // Scene
 const scene = new THREE.Scene()
@@ -24,7 +23,11 @@ const scene = new THREE.Scene()
  * Textures
  */
 const textureLoader = new THREE.TextureLoader()
-const matcapTexture = textureLoader.load('/textures/matcaps/8.png')
+const matcapTexture3 = textureLoader.load('/textures/matcaps/3.png')
+const matcapTexture4 = textureLoader.load('/textures/matcaps/4.png')
+const matcapTexture5 = textureLoader.load('/textures/matcaps/5.png')
+const matcapTexture6 = textureLoader.load('/textures/matcaps/6.png')
+const matcapTexture8 = textureLoader.load('/textures/matcaps/8.png')
 
 /**
  * Fonts
@@ -38,7 +41,7 @@ fontLoader.load(
             'Taito’s Portfolio\nComing Soon!',
             {
                 font: font,
-                size: 0.5,
+                size: 0.75,
                 height: 0.2,
                 curveSegments: 5,
                 bevelEnabled: true,
@@ -55,34 +58,58 @@ fontLoader.load(
     //     - (textGeometry.boundingBox.max.z - 0.03) * 0.5  // Subtract bevel thickness
     // )
     textGeometry.center()
-    //console.log(textGeometry.boundingBox)
 
-    // const textMaterial = new THREE.MeshBasicMaterial()
-    const textMaterial = new THREE.MeshMatcapMaterial({ matcap: matcapTexture })
+    const textMaterial = new THREE.MeshMatcapMaterial({ matcap: matcapTexture5 })
     const text = new THREE.Mesh(textGeometry,textMaterial)
     scene.add(text)
 
+
+    // torus
     const donutGeometry = new THREE.TorusGeometry(0.3, 0.2, 20, 45)
-    const donutMaterial = new THREE.MeshMatcapMaterial({ matcap: matcapTexture })
+    const donutMaterial = new THREE.MeshMatcapMaterial({ matcap: matcapTexture3 })
+
+    // box
+    const cubeGeometry = new THREE.BoxGeometry( 0.6, 0.6, 0.6 ); 
+    const cubeMaterial = new THREE.MeshMatcapMaterial({ matcap: matcapTexture4 })
+
+    // sphere
+    const sphereGeometry = new THREE.SphereGeometry( 0.4, 0.4, 0.4 ); 
+    const sphereMaterial = new THREE.MeshMatcapMaterial( { matcap: matcapTexture6 } )
+
+    // torusknot
+    // const TorusKnotGeometry = new THREE.TorusKnotGeometry( 10, 3, 100, 16 )
+    // const TorusKnotMaterial = new THREE.MeshMatcapMaterial( { matcap: matcapTexture6 } )
 
         for(let i = 0; i < 600; i++)
         {
-     
+            let array = []
+            
             const donut = new THREE.Mesh(donutGeometry, donutMaterial)
 
-            donut.position.x = (Math.random() - 0.5) * 20
-            donut.position.y = (Math.random() - 0.5) * 20
-            donut.position.z = (Math.random() - 0.5) * 20
+            const cube = new THREE.Mesh( cubeGeometry, cubeMaterial)
 
-            donut.rotation.x = Math.random() * Math.PI
-            donut.rotation.y = Math.random() * Math.PI
+            const sphere = new THREE.Mesh( sphereGeometry, sphereMaterial )
 
-            const scale = Math.random()
-            donut.scale.x = scale
-            donut.scale.y = scale
-            donut.scale.z = scale
+            // const torusKnot = new THREE.Mesh( TorusKnotGeometry, TorusKnotMaterial )
 
-            scene.add(donut)
+            array.push(donut,cube,sphere)
+
+            array.map((element) => {
+                element.position.x = (Math.random() - 0.5) * 20
+                element.position.y = (Math.random() - 0.5) * 20
+                element.position.z = (Math.random() - 0.5) * 20
+
+                element.rotation.x = Math.random() * Math.PI
+                element.rotation.y = Math.random() * Math.PI
+             
+                const scale = Math.random()
+                element.scale.x = scale
+                element.scale.y = scale
+                element.scale.z = scale
+
+                scene.add(element)
+            })
+            
         }
 
     }
@@ -128,9 +155,9 @@ window.addEventListener('resize', () =>
  */
 // Base camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
-camera.position.x = 1
-camera.position.y = 1
-camera.position.z = 2
+camera.position.x = 0.2
+camera.position.y = 0.4
+camera.position.z = 10
 scene.add(camera)
 
 // Controls
@@ -146,6 +173,12 @@ const renderer = new THREE.WebGLRenderer({
 renderer.outputColorSpace = THREE.LinearSRGBColorSpace
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+
+// Debug
+const gui = new dat.GUI()
+gui.add(camera.position,'x').min(-10).max(10).step(0.1)
+gui.add(camera.position,'y').min(-10).max(10).step(0.1)
+gui.add(camera.position,'z').min(-10).max(10).step(0.1)
 
 /**
  * Animate
