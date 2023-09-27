@@ -33,6 +33,7 @@ const matcapTexture7 = textureLoader.load('/textures/matcaps/7.png')
 const matcapTexture8 = textureLoader.load('/textures/matcaps/8.png')
 const iceblue = textureLoader.load('/textures/matcaps/iceblue.png')
 const gold = textureLoader.load('/textures/matcaps/gold.png')
+const rainbow = textureLoader.load('/textures/matcaps/rainbow.png')
 
 /**
  * Fonts
@@ -65,7 +66,7 @@ fontLoader.load(
     textGeometry.center()
 
     // text
-    const textMaterial = new THREE.MeshMatcapMaterial({ matcap: gold })
+    const textMaterial = new THREE.MeshMatcapMaterial({ matcap: rainbow })
     const text = new THREE.Mesh(textGeometry,textMaterial)
     scene.add(text)
 
